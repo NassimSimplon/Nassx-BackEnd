@@ -25,10 +25,14 @@ mongoose
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-const server = app.listen(4000, () =>
-  console.log(`Server started on ${4000}`)
+const server = app.listen(5000, () =>
+  console.log(`Server started on ${5000}`)
 );
-const io = socket(server); 
+const io = socket(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  } }); 
 
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
