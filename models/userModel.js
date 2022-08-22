@@ -3,21 +3,35 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
+    
     min: 3,
     max: 20,
     unique: true,
   },
+  phonenumber: {
+    type: String,
+  
+  },
+  
+
   email: {
     type: String,
-    required: true,
+    
     unique: true,
     max: 50,
   },
   password: {
     type: String,
-    required: true,
+    
     min: 8,
+  },
+  latitude:{
+    type: String,
+    
+  },
+  longitude:{
+    type: String,
+    
   },
   isAvatarImageSet: {
     type: Boolean,
@@ -27,6 +41,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+
+  role:{
+    type:String,
+    enum:['user','motor'],
+    default: 'user'
+}
 });
 
 module.exports = mongoose.model("users", userSchema);
