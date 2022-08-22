@@ -11,10 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 mongoose
-  .connect('mongodb+srv://admin:admin@cluster0.q79uc.mongodb.net/atlantis?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect('mongodb+srv://admin:admin@cluster0.q79uc.mongodb.net/atlantis?retryWrites=true&w=majority')
   .then(() => {
     console.log("DB Connetion Successfull");
   })
@@ -24,15 +21,11 @@ mongoose
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
-
-const server = app.listen(5000, () =>
+ const PORT = process.env.PORT || 5000;
+const server = app.listen(PORT, () =>
   console.log(`Server started on ${5000}`)
 );
-const io = socket(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    credentials: true,
-  } }); 
+const io = socket(server); 
 
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
