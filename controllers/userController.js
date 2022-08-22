@@ -62,6 +62,16 @@ module.exports.getAllUsers = async (req, res, next) => {
     next(ex);
   }
 };
+
+
+module.exports.getAll = async (req, res, next) => {
+  try {
+    const users = await User.find()
+    return res.json(users);
+  } catch (ex) {
+    next(ex);
+  }
+};
 module.exports.updateUser = async (req, res, next) => {
   try {
     const users = await User.findByIdAndUpdate(req.params.id, req.body, {
